@@ -1,3 +1,5 @@
+export const runtime = "edge";
+
 import { ArrowUpRight, InfoIcon } from "lucide-react";
 import Link from "next/link";
 
