@@ -5,6 +5,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { SmtpMessage } from "../smtp-message";
+import { Button } from "@/components/ui/button";
+import SignInButton from "@/components/features/auth/SignInButton";
 
 export default async function Signup(props: {
   searchParams: Promise<Message>;
@@ -46,6 +48,7 @@ export default async function Signup(props: {
         </div>
       </form>
       <SmtpMessage />
+      <SignInButton />
     </>
   );
 }
