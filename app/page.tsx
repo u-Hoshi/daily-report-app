@@ -1,3 +1,4 @@
+import { MarkdownEditor } from "@/components/features/MarkdownInput/MarkdownInput";
 import GeminiChatBox from "@/components/features/top/GeminiChatBox";
 
 export default async function Home() {
@@ -6,6 +7,7 @@ export default async function Home() {
       <main className="flex-1 flex flex-col gap-6 px-4">
         <h1>日報応援アプリ</h1>
         <GeminiChatBox />
+        <MarkdownEditor />
       </main>
     </>
   );
