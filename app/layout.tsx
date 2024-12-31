@@ -35,8 +35,13 @@ export default function RootLayout({
         >
           <SidebarProvider>
             <AppSidebar />
-            <SidebarTrigger />
-            {children}
+            <div className="display-flex flex-wrap align-center justify-between p-6 w-full">
+              <div className="flex items-center gap-1 pb-8">
+                <SidebarTrigger className="" />
+                <h1 className="text-3xl font-bold">私の日報</h1>
+              </div>
+              {children}
+            </div>
           </SidebarProvider>
         </ThemeProvider>
       </body>

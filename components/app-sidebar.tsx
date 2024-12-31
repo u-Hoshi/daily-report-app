@@ -20,9 +20,8 @@ const items = [
 export function AppSidebar() {
   return (
     <Sidebar>
-      <SidebarContent>
+      <SidebarContent className="pt-6">
         <SidebarGroup>
-          <SidebarGroupLabel>私の日報</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (
