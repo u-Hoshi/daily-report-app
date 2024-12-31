@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/sidebar";
 
 const items = [
-  { title: "ホーム", url: "/protected", icon: Home },
+  // { title: "ホーム", url: "/protected", icon: Home },
   { title: "日報を書く", url: "/", icon: SquarePen },
   { title: "日報を読む", url: "/", icon: NotebookPen },
   { title: "設定", url: "/", icon: Settings },
@@ -21,7 +21,7 @@ export function AppSidebar() {
   return (
     <Sidebar>
       <SidebarContent className="pt-6">
-        <SidebarGroup>
+        <SidebarGroup className="pt-0">
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (
