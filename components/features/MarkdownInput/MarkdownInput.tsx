@@ -14,18 +14,46 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} 
 import "github-markdown-css/github-markdown.css";
 import { PenLine, Save, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { createClient } from "@/utils/supabase/client";
 
 export const MarkdownEditor = () => {
   const [markdownValue, setMarkdownValue] = useState("");
+  const supabase = createClient();
 
   useEffect(() => {
-    const savedContent = localStorage.getItem("smde_saved_content") ?? "";
-    setMarkdownValue(savedContent);
+    (async () => {
+      const savedContent = localStorage.getItem("smde_saved_content") ?? "";
+      const { data, error } = await supabase.from("reports").select("*");
+      setMarkdownValue(savedContent);
+    })();
   }, []);
 
   const onChange = (value: string) => {
     setMarkdownValue(value);
   };
+
+  const onSubmit = async () => {
+    try {
+      const {
+        data: { session },
+        error: sessionError,
+      } = await supabase.auth.getSession();
+
+      if (sessionError) return console.error("セッションエラー:", sessionError);
+
+      if (!session) return console.log("ログインしていません");
+
+      const userId = session.user.id;
+      const { error } = await supabase
+        .from("reports")
+        .insert([{ content: markdownValue, user_id: userId }]);
+    } catch (e) {
+      console.log("error", e);
+    }
+  };
+  // };
+
+  const onRequestAdvice = () => {};
 
   /**
    * TODO:
@@ -88,7 +116,7 @@ export const MarkdownEditor = () => {
               <div>
                 <Button
                   variant="secondary"
-                  // onClick={onSubmit}
+                  onClick={onSubmit}
                   className="w-60"
                   // disabled={!value.trim()}
                 >
@@ -98,7 +126,7 @@ export const MarkdownEditor = () => {
               </div>
               <div>
                 <Button
-                  // onClick={onRequestAdvice}
+                  onClick={onRequestAdvice}
                   className="w-60"
                   // disabled={!value.trim()}
                 >
