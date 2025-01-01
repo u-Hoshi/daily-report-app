@@ -25,7 +25,7 @@ export function DailyReportCard({
   return (
     <Card className="mb-4 overflow-hidden">
       <CardHeader className="bg-primary text-primary-foreground">
-        <CardTitle>{date}</CardTitle>
+        <CardTitle>{new Date(date).toLocaleDateString()}</CardTitle>
       </CardHeader>
       <CardContent className="pt-4">
         <div className="mb-4">
