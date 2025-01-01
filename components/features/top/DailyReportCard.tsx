@@ -7,21 +7,19 @@ import {
   CardContent,
   CardFooter,
 } from "@/components/ui/card";
-import breaks from "remark-breaks";
-import remarkGfm from "remark-gfm";
-import ReactMarkdown from "react-markdown";
+import MarkdownView from "@/components/markdown-view";
 
 interface DailyReportCardProps {
   date: string;
-  report: string;
-  advice: string;
+  report: {
+    id: number;
+    content: string;
+    created_at: string;
+    feedbacks: { content: string }[];
+  };
 }
 
-export function DailyReportCard({
-  date,
-  report,
-  advice,
-}: DailyReportCardProps) {
+export function DailyReportCard({ date, report }: DailyReportCardProps) {
   return (
     <Card className="mb-4 overflow-hidden">
       <CardHeader className="bg-primary text-primary-foreground">
@@ -36,9 +34,7 @@ export function DailyReportCard({
               className="markdown-body p-4 border border-gray-300 overflow-y-auto"
               style={{ fontFamily: "inherit", fontSize: "inherit" }}
             >
-              <ReactMarkdown remarkPlugins={[remarkGfm, breaks]}>
-                {report}
-              </ReactMarkdown>
+              <MarkdownView markdown={report.content} />
             </div>
           </div>
         </div>
@@ -46,7 +42,11 @@ export function DailyReportCard({
           {/* <h3 className="text-lg font-semibold flex items-center gap-1 mb-2">
             <Sparkles className="h-5 w-5" /> アドバイス
           </h3> */}
-          <p className="bg-secondary p-3 rounded-md">{advice}</p>
+          {report.feedbacks[0]?.content && (
+            <div className="bg-secondary p-3 rounded-md">
+              <MarkdownView markdown={report.feedbacks[0].content} />
+            </div>
+          )}
         </div>
       </CardContent>
       <CardFooter className="flex justify-center"></CardFooter>

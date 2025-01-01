@@ -6,9 +6,6 @@ const ReactSimpleMdeEditor = dynamic(() => import("react-simplemde-editor"), {
 });
 import "easymde/dist/easymde.min.css";
 import { useEffect, useMemo, useState } from "react";
-import ReactMarkdown from "react-markdown";
-import breaks from "remark-breaks";
-import remarkGfm from "remark-gfm";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card"; // prettier-ignore
 import "github-markdown-css/github-markdown.css";
@@ -17,34 +14,28 @@ import { Button } from "@/components/ui/button";
 import { createClient } from "@/utils/supabase/client";
 import axios from "axios";
 import { Skeleton } from "@/components/ui/skeleton";
+import MarkdownView from "@/components/markdown-view";
 
 type Props = {
   report?: {
     id: number;
     content: string;
     created_at: string;
+    feedbacks: { content: string }[];
   };
-  initialContent: string;
-  isCreatedToday: boolean;
   handleSubmit: (content: string) => Promise<void>;
 };
 
-export const MarkdownEditor: React.FC<Props> = ({
-  report,
-  initialContent,
-  isCreatedToday,
-  handleSubmit,
-}) => {
+export const MarkdownEditor: React.FC<Props> = ({ report, handleSubmit }) => {
   const supabase = createClient();
   const [markdownValue, setMarkdownValue] = useState("");
-  const [feedback, setFeedback] = useState("");
+  const [feedback, setFeedback] = useState(report?.feedbacks[0]?.content ?? "");
   const [isLoading, setIsLoading] = useState(false);
+  const [isInitLoading, setIsInitLoading] = useState(true);
 
   useEffect(() => {
-    const savedContent = localStorage.getItem("smde_saved_content") ?? "";
-    setMarkdownValue(
-      isCreatedToday && initialContent ? initialContent : savedContent
-    );
+    setMarkdownValue(report?.content || "");
+    setIsInitLoading(false);
   }, []);
 
   const onChange = (value: string) => {
@@ -90,9 +81,9 @@ export const MarkdownEditor: React.FC<Props> = ({
       autofocus: true,
       spellChecker: false,
       autosave: {
-        enabled: true,
-        uniqueId: "saved_content",
-        delay: 1000,
+        // enabled: false,
+        // uniqueId: "saved_content",
+        // delay: 1000,
       },
       hideIcons: ["image", "fullscreen", "side-by-side", "preview", "guide"],
       status: false,
@@ -117,21 +108,23 @@ export const MarkdownEditor: React.FC<Props> = ({
                   </TabsList>
                 </div>
               </div>
-              <TabsContent value="markdown">
-                <ReactSimpleMdeEditor
-                  value={markdownValue}
-                  onChange={onChange}
-                  options={options}
-                />
+              <TabsContent value="markdown" className="min-h-[371px]">
+                {!isInitLoading ? (
+                  <ReactSimpleMdeEditor
+                    value={markdownValue}
+                    onChange={onChange}
+                    options={options}
+                  />
+                ) : (
+                  <Skeleton className="h-[371px] w-full	 rounded-xl" />
+                )}
               </TabsContent>
               <TabsContent value="preview">
                 <div
                   className="markdown-body p-4 border border-gray-300 h-72 overflow-y-auto"
                   style={{ fontFamily: "inherit", fontSize: "inherit" }}
                 >
-                  <ReactMarkdown remarkPlugins={[remarkGfm, breaks]}>
-                    {markdownValue}
-                  </ReactMarkdown>
+                  <MarkdownView markdown={markdownValue} />
                 </div>
               </TabsContent>
             </Tabs>
@@ -169,19 +162,15 @@ export const MarkdownEditor: React.FC<Props> = ({
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="h-fit rounded-lg bg-background p-4">
-            {feedback ? (
-              <ReactMarkdown remarkPlugins={[remarkGfm, breaks]}>
-                {feedback}
-              </ReactMarkdown>
-            ) : isLoading ? (
-              <Skeleton className="w-[100px] h-[20px] rounded-full" />
-            ) : (
-              <p className="text-muted-foreground text-center">
-                日記を書いて保存すると、Geminiからのアドバイスが表示されます
-              </p>
-            )}
-          </div>
+          {feedback ? (
+            <MarkdownView markdown={feedback} />
+          ) : isLoading ? (
+            <Skeleton className="w-[100px] h-[20px] rounded-full" />
+          ) : (
+            <p className="text-muted-foreground text-center">
+              日記を書いて保存すると、Geminiからのアドバイスが表示されます
+            </p>
+          )}
         </CardContent>
       </Card>
     </>
