@@ -25,8 +25,8 @@ export function DailyReportCard({ date, report }: DailyReportCardProps) {
       <CardHeader className="bg-primary text-primary-foreground">
         <CardTitle>{new Date(date).toLocaleDateString()}</CardTitle>
       </CardHeader>
-      <CardContent className="pt-4">
-        <div className="mb-4">
+      <CardContent className="pt-4 pb-0">
+        <div className="">
           {/* TODO: カード内の各セクションのタイトルの有無を検討 */}
           {/* <h3 className="text-lg font-semibold mb-2">日報</h3> */}
           <div className="line-clamp-3">
@@ -38,7 +38,7 @@ export function DailyReportCard({ date, report }: DailyReportCardProps) {
             </div>
           </div>
         </div>
-        <div>
+        <div className="mt-4">
           {/* <h3 className="text-lg font-semibold flex items-center gap-1 mb-2">
             <Sparkles className="h-5 w-5" /> アドバイス
           </h3> */}
