@@ -10,22 +10,22 @@ type Month = {
 
 const MONTHS: Month[][] = [
   [
-    { number: 0, name: "Jan" },
-    { number: 1, name: "Feb" },
-    { number: 2, name: "Mar" },
-    { number: 3, name: "Apr" },
+    { number: 0, name: "1月" },
+    { number: 1, name: "2月" },
+    { number: 2, name: "3月" },
+    { number: 3, name: "4月" },
   ],
   [
-    { number: 4, name: "May" },
-    { number: 5, name: "Jun" },
-    { number: 6, name: "Jul" },
-    { number: 7, name: "Aug" },
+    { number: 4, name: "5月" },
+    { number: 5, name: "6月" },
+    { number: 6, name: "7月" },
+    { number: 7, name: "8月" },
   ],
   [
-    { number: 8, name: "Sep" },
-    { number: 9, name: "Oct" },
-    { number: 10, name: "Nov" },
-    { number: 11, name: "Dec" },
+    { number: 8, name: "9月" },
+    { number: 9, name: "10月" },
+    { number: 10, name: "11月" },
+    { number: 11, name: "12月" },
   ],
 ];
 
