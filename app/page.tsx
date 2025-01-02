@@ -1,10 +1,10 @@
 export const runtime = "edge";
 
-import { MarkdownEditor } from "@/components/features/MarkdownInput/MarkdownInput";
-import { DailyReportCard } from "@/components/features/top/DailyReportCard";
+import { ReportInput } from "@/components/features/ReportInput";
+import { DailyReportCard } from "@/components/orgnisms/DailyReportCard";
 import { Separator } from "@/components/ui/separator";
 import { createClient } from "@/utils/supabase/server";
-import { BookOpen } from "lucide-react";
+import { BookOpen, PenLine } from "lucide-react";
 import { revalidatePath } from "next/cache";
 
 const now = new Date();
@@ -61,10 +61,14 @@ export default async function Home() {
 
   return (
     <>
-      <main className="flex-1 flex flex-col gap-6">
-        <MarkdownEditor report={todayReport} handleSubmit={handleSubmit} />
-        <Separator />
-        <h2 className="flex text-2xl font-semibold">
+      <main className="block">
+        <h2 className="flex text-2xl font-semibold pb-2">
+          <PenLine className="h-8 w-8 mr-2" />
+          日報を書く
+        </h2>
+        <ReportInput report={todayReport} handleSubmit={handleSubmit} />
+        <Separator className="my-6" />
+        <h2 className="flex text-2xl font-semibold pb-2">
           <BookOpen className="h-8 w-8 mr-2" />
           1週間の日報
         </h2>

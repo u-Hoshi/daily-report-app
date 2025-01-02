@@ -8,9 +8,9 @@ import { cn } from "@/lib/utils";
 
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"; // prettier-ignore
 import { createClient } from "@/utils/supabase/client";
-import { DailyReportCard } from "../top/DailyReportCard";
+import { DailyReportCard } from "@/components/orgnisms/DailyReportCard";
 
-type Reports = {
+type Report = {
   id: number;
   content: string;
   created_at: string;
@@ -18,7 +18,7 @@ type Reports = {
 };
 
 const TimelineReports = () => {
-  const [reports, setReports] = useState<Reports[]>();
+  const [reports, setReports] = useState<Report[]>();
   const [selectedMonth, setSelectedMonth] = useState<Date>(new Date());
   const [open, setOpen] = useState(false);
 
@@ -90,7 +90,7 @@ const TimelineReports = () => {
       </div>
       <div className="space-y-6">
         {reports
-          ? reports.map((report: Reports, index: any) => (
+          ? reports.map((report: Report, index: any) => (
               <DailyReportCard
                 key={index}
                 date={report.created_at}

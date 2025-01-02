@@ -1,0 +1,1 @@
+export { ReportInput } from "./page";
