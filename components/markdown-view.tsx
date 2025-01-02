@@ -1,6 +1,13 @@
+"use client";
+
+import dynamic from "next/dynamic";
+
 import breaks from "remark-breaks";
 import remarkGfm from "remark-gfm";
-import ReactMarkdown from "react-markdown";
+
+const ReactMarkdown = dynamic(() => import("react-markdown"), {
+  ssr: false,
+});
 
 const MarkdownView = ({ markdown }: { markdown: string }) => {
   return (

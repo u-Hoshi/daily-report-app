@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardContent,
-  CardFooter,
-} from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card"; // prettier-ignore
 import MarkdownView from "@/components/markdown-view";
 
 interface DailyReportCardProps {
@@ -15,7 +9,7 @@ interface DailyReportCardProps {
     id: number;
     content: string;
     created_at: string;
-    feedbacks: { content: string }[];
+    feedbacks?: { content: string }[];
   };
 }
 
@@ -42,7 +36,7 @@ export function DailyReportCard({ date, report }: DailyReportCardProps) {
           {/* <h3 className="text-lg font-semibold flex items-center gap-1 mb-2">
             <Sparkles className="h-5 w-5" /> アドバイス
           </h3> */}
-          {report.feedbacks[0]?.content && (
+          {report.feedbacks?.[0]?.content && (
             <div className="bg-secondary p-3 rounded-md">
               <MarkdownView markdown={report.feedbacks[0].content} />
             </div>
