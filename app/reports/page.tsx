@@ -1,5 +1,7 @@
 export const runtime = "edge";
 
+import TimelineReports from "@/components/features/Reports/TimelineReports";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { createClient } from "@/utils/supabase/server";
 
 export default async function Reports() {
@@ -13,15 +15,20 @@ export default async function Reports() {
 
   return (
     <>
-      <h1>reports</h1>
+      <h1>日報を振り返る</h1>
       <main>
-        {reports.length > 0 && (
-          <ul>
-            {reports.map((report) => (
-              <li key={report.id}>{report.content}</li>
-            ))}
-          </ul>
-        )}
+        <Tabs defaultValue="timelineView" className="">
+          <TabsList>
+            <TabsTrigger value="calendarView">カレンダービュー</TabsTrigger>
+            <TabsTrigger value="timelineView">タイムラインビュー</TabsTrigger>
+          </TabsList>
+          <TabsContent value="calendarView">
+            Make changes to your account here.
+          </TabsContent>
+          <TabsContent value="timelineView">
+            <TimelineReports />
+          </TabsContent>
+        </Tabs>
       </main>
     </>
   );
