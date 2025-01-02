@@ -13,7 +13,8 @@ import {
 const items = [
   // { title: "ホーム", url: "/protected", icon: Home },
   { title: "日報を書く", url: "/", icon: SquarePen },
-  { title: "日報を読む", url: "/", icon: NotebookPen },
+  { title: "日報を読む", url: "/reports", icon: NotebookPen },
+  { title: "週報・月報を読む", url: "/periodic_reports", icon: NotebookPen },
   { title: "設定", url: "/", icon: Settings },
 ];
 
