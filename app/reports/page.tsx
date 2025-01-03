@@ -1,6 +1,6 @@
 export const runtime = "edge";
 
-import TimelineReports from "@/components/features/reports/TimelineReports";
+import TimelineReports from "@/components/features/Reports/TimelineReports";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { createClient } from "@/utils/supabase/server";
 
