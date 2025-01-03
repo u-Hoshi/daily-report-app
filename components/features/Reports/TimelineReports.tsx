@@ -1,14 +1,10 @@
 "use client";
 
-import { CalendarIcon } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
-import { MonthPicker } from "@/components/ui/monthpicker";
-import { cn } from "@/lib/utils";
 
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"; // prettier-ignore
 import { createClient } from "@/utils/supabase/client";
 import { DailyReportCard } from "@/components/orgnisms/DailyReportCard";
+import MonthSelector from "@/components/orgnisms/MonthSelector";
 
 type Report = {
   id: number;
@@ -20,17 +16,16 @@ type Report = {
 const TimelineReports = () => {
   const [reports, setReports] = useState<Report[]>();
   const [selectedMonth, setSelectedMonth] = useState<Date>(new Date());
-  const [open, setOpen] = useState(false);
 
-  const handleMonthSelect = (selectedselectedMonth: Date) => {
-    setSelectedMonth(selectedselectedMonth);
-    setOpen(false);
+  const handleMonthSelect = (date: Date) => {
+    setSelectedMonth(date);
   };
 
   const supabase = createClient();
 
   useEffect(() => {
     if (!selectedMonth) return;
+    setReports(undefined);
 
     const fetchData = async () => {
       await createClient();
@@ -56,48 +51,24 @@ const TimelineReports = () => {
         //   setLoading(false);
       }
     };
-
     fetchData();
   }, [selectedMonth]);
 
   return (
     <div>
-      <div className="p-4">
-        <Popover open={open} onOpenChange={setOpen}>
-          <PopoverTrigger asChild>
-            <Button
-              variant={"outline"}
-              className={cn(
-                "w-[160px] justify-start text-left font-normal",
-                !selectedMonth && "text-muted-foreground"
-              )}
-            >
-              <CalendarIcon className="mr-2 h-4 w-4" />
-              {selectedMonth ? (
-                `${selectedMonth.getFullYear()}年 ${selectedMonth.getMonth() + 1}月`
-              ) : (
-                <span>月を選択</span>
-              )}
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent className="w-auto p-0">
-            <MonthPicker
-              onMonthSelect={handleMonthSelect}
-              selectedMonth={selectedMonth}
-            />
-          </PopoverContent>
-        </Popover>
-      </div>
+      <MonthSelector
+        selectedMonth={selectedMonth}
+        onMonthSelect={handleMonthSelect}
+      />
       <div className="space-y-6">
-        {reports
-          ? reports.map((report: Report, index: any) => (
-              <DailyReportCard
-                key={index}
-                date={report.created_at}
-                report={report}
-              />
-            ))
-          : null}
+        {reports &&
+          reports.map((report: Report) => (
+            <DailyReportCard
+              key={report.id}
+              date={report.created_at}
+              report={report}
+            />
+          ))}
       </div>
     </div>
   );
