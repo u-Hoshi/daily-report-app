@@ -45,10 +45,6 @@ export function DailyReportCard({ date, report }: DailyReportCardProps) {
         .update({ content, updated_at: new Date().toISOString() })
         .eq("id", report?.id);
       setEditing(false);
-      await supabase
-        .from("reports")
-        .update({ content, updated_at: new Date().toISOString() })
-        .eq("id", report?.id);
       setMarkdownValue(content);
     } catch (e) {
       console.log("error", e);
@@ -73,7 +69,7 @@ export function DailyReportCard({ date, report }: DailyReportCardProps) {
         {!!editing ? (
           <>
             <MarkdownEditor
-              value={report.content}
+              value={markdownValue}
               handleMarkdownValueChange={handleMarkdownValueChange}
             />
             <div className="flex justify-end mt-2">
