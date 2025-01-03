@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 const ReactSimpleMdeEditor = dynamic(() => import("react-simplemde-editor"), {
+  // loading: () => <div className="animate-pulse h-64 bg-gray-100 rounded-md" />,
   ssr: false,
 });
 import "easymde/dist/easymde.min.css";
@@ -23,7 +24,7 @@ export const MarkdownEditor: React.FC<Props> = ({
   const [isInitLoading, setIsInitLoading] = useState(true);
 
   useEffect(() => {
-    setIsInitLoading(!value);
+    setIsInitLoading(false);
   }, []);
 
   /**
