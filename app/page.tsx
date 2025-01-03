@@ -8,7 +8,8 @@ import { BookOpen, PenLine } from "lucide-react";
 import { revalidatePath } from "next/cache";
 
 const now = new Date();
-const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+const eightDaysAgo = new Date(now.getTime() - 8 * 24 * 60 * 60 * 1000);
 
 export default async function Home() {
   const supabase = await createClient();
@@ -16,16 +17,20 @@ export default async function Home() {
   const { data: reports, error } = await supabase
     .from("reports")
     .select(`*, feedbacks (*)`)
-    .gte("created_at", weekAgo.toISOString())
+    .gte("created_at", eightDaysAgo.toLocaleDateString())
     .order("created_at", { ascending: false });
 
   if (error) console.error("Error fetching reports:", error);
 
   const isTodayReport = reports?.[0]
-    ? new Date(reports[0].created_at).toDateString() ===
-      new Date().toDateString()
+    ? new Date(reports[0].created_at).toLocaleDateString() ===
+      new Date().toLocaleDateString()
     : false;
   const todayReport = isTodayReport && reports ? reports[0] : undefined;
+  const filteredReports = reports?.filter((report) => {
+    const reportDate = new Date(report.created_at);
+    return reportDate < startOfToday;
+  });
 
   const handleSubmit = async (content: string) => {
     "use server";
@@ -73,8 +78,8 @@ export default async function Home() {
           1週間の日報
         </h2>
         <div className="space-y-6">
-          {reports
-            ? reports.map((report, index) => (
+          {filteredReports
+            ? filteredReports.map((report, index) => (
                 <DailyReportCard
                   key={index}
                   date={report.created_at}
