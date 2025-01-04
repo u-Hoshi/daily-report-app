@@ -19,37 +19,37 @@ interface DailyReportCardProps {
 }
 
 export function DailyReportCard({ date, report }: DailyReportCardProps) {
-  // const [markdownValue, setMarkdownValue] = useState(report.content) || "";
+  const [markdownValue, setMarkdownValue] = useState(report.content) || "";
   const [editing, setEditing] = useState(false);
-  // const handleMarkdownValueChange = (value: string) => {
-  //   setMarkdownValue(value);
-  // };
+  const handleMarkdownValueChange = (value: string) => {
+    setMarkdownValue(value);
+  };
   const handleEditClick = () => {
     setEditing(!editing);
   };
 
-  // const handleSubmit = async (content: string) => {
-  //   const supabase = createClient();
+  const handleSubmit = async (content: string) => {
+    const supabase = createClient();
 
-  //   try {
-  //     const {
-  //       data: { session },
-  //       error: sessionError,
-  //     } = await supabase.auth.getSession();
+    try {
+      const {
+        data: { session },
+        error: sessionError,
+      } = await supabase.auth.getSession();
 
-  //     if (sessionError) return console.error("セッションエラー:", sessionError);
-  //     if (!session) return console.log("ログインしていません");
+      if (sessionError) return console.error("セッションエラー:", sessionError);
+      if (!session) return console.log("ログインしていません");
 
-  //     await supabase
-  //       .from("reports")
-  //       .update({ content, updated_at: new Date().toISOString() })
-  //       .eq("id", report?.id);
-  //     setEditing(false);
-  //     setMarkdownValue(content);
-  //   } catch (e) {
-  //     console.log("error", e);
-  //   }
-  // };
+      await supabase
+        .from("reports")
+        .update({ content, updated_at: new Date().toISOString() })
+        .eq("id", report?.id);
+      setEditing(false);
+      setMarkdownValue(content);
+    } catch (e) {
+      console.log("error", e);
+    }
+  };
 
   return (
     <Card className="mb-4 overflow-hidden">
@@ -68,7 +68,7 @@ export function DailyReportCard({ date, report }: DailyReportCardProps) {
       <CardContent className="pt-4 pb-0">
         {!!editing ? (
           <>
-            {/* <MarkdownEditor
+            <MarkdownEditor
               value={markdownValue}
               handleMarkdownValueChange={handleMarkdownValueChange}
             />
@@ -81,20 +81,20 @@ export function DailyReportCard({ date, report }: DailyReportCardProps) {
                   保存
                 </Button>
               </div>
-            </div> */}
+            </div>
           </>
         ) : (
           <div className="">
             {/* TODO: カード内の各セクションのタイトルの有無を検討 */}
             {/* <h3 className="text-lg font-semibold mb-2">日報</h3> */}
-            {/* <div className="line-clamp-3">
+            <div className="line-clamp-3">
               <div
                 className="markdown-body p-4 border border-gray-300 overflow-y-auto"
                 style={{ fontFamily: "inherit", fontSize: "inherit" }}
               >
                 <MarkdownView markdown={markdownValue} />
               </div>
-            </div> */}
+            </div>
           </div>
         )}
         <div className="mt-4">
@@ -103,7 +103,7 @@ export function DailyReportCard({ date, report }: DailyReportCardProps) {
           </h3> */}
           {report.feedbacks?.[0]?.content && (
             <div className="bg-secondary p-3 rounded-md">
-              <MarkdownView markdown={report.feedbacks[0].content} />
+              {/* <MarkdownView markdown={report.feedbacks[0].content} /> */}
             </div>
           )}
         </div>
