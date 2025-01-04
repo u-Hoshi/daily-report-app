@@ -71,13 +71,13 @@ export default async function Home() {
           <PenLine className="h-8 w-8 mr-2" />
           日報を書く
         </h2>
-        {/* <ReportInput report={todayReport} handleSubmit={handleSubmit} />
+        <ReportInput report={todayReport} handleSubmit={handleSubmit} />
         <Separator className="my-6" />
         <h2 className="flex text-2xl font-semibold pb-2">
           <BookOpen className="h-8 w-8 mr-2" />
           1週間の日報
-        </h2> */}
-        <div className="space-y-6">
+        </h2>
+        {/* <div className="space-y-6">
           {filteredReports
             ? filteredReports.map((report, index) => (
                 <DailyReportCard
@@ -87,7 +87,7 @@ export default async function Home() {
                 />
               ))
             : null}
-        </div>
+        </div> */}
       </main>
     </>
   );
