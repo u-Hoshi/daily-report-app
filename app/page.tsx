@@ -77,7 +77,7 @@ export default async function Home() {
           <BookOpen className="h-8 w-8 mr-2" />
           1週間の日報
         </h2>
-        {/* <div className="space-y-6">
+        <div className="space-y-6">
           {filteredReports
             ? filteredReports.map((report, index) => (
                 <DailyReportCard
@@ -87,7 +87,7 @@ export default async function Home() {
                 />
               ))
             : null}
-        </div> */}
+        </div>
       </main>
     </>
   );
