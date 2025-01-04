@@ -56,15 +56,15 @@ export function DailyReportCard({ date, report }: DailyReportCardProps) {
     <Card className="mb-4 overflow-hidden">
       <CardHeader className="bg-primary text-primary-foreground">
         <div className="flex justify-between items-center">
-          <CardTitle>{displayDate}</CardTitle>
-          {/* <Button
+          {/* <CardTitle>{displayDate}</CardTitle> */}
+          <Button
             variant="ghost"
             className="ml-2 hover:bg-gray-200 transition-colors"
             onClick={handleEditClick}
             aria-label="編集"
           >
             <Pencil className="h-4 w-4" />
-          </Button> */}
+          </Button>
         </div>
       </CardHeader>
       <CardContent className="pt-4 pb-0">
