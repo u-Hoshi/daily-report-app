@@ -21,6 +21,7 @@ interface DailyReportCardProps {
 export function DailyReportCard({ date, report }: DailyReportCardProps) {
   const [markdownValue, setMarkdownValue] = useState("");
   const [editing, setEditing] = useState(false);
+  const displayDate = new Date(date).toLocaleDateString();
   const handleMarkdownValueChange = (value: string) => {
     setMarkdownValue(value);
   };
@@ -55,7 +56,7 @@ export function DailyReportCard({ date, report }: DailyReportCardProps) {
     <Card className="mb-4 overflow-hidden">
       <CardHeader className="bg-primary text-primary-foreground">
         <div className="flex justify-between items-center">
-          <CardTitle>{new Date(date).toLocaleDateString()}</CardTitle>
+          <CardTitle>{displayDate}</CardTitle>
           <Button
             variant="ghost"
             className="ml-2 hover:bg-gray-200 transition-colors"
