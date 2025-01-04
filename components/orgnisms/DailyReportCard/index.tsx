@@ -19,7 +19,7 @@ interface DailyReportCardProps {
 }
 
 export function DailyReportCard({ date, report }: DailyReportCardProps) {
-  const [markdownValue, setMarkdownValue] = useState(report.content) || "";
+  const [markdownValue, setMarkdownValue] = useState(report.content || "");
   const [editing, setEditing] = useState(false);
   const handleMarkdownValueChange = (value: string) => {
     setMarkdownValue(value);
@@ -103,7 +103,7 @@ export function DailyReportCard({ date, report }: DailyReportCardProps) {
           </h3> */}
           {report.feedbacks?.[0]?.content && (
             <div className="bg-secondary p-3 rounded-md">
-              {/* <MarkdownView markdown={report.feedbacks[0].content} /> */}
+              <MarkdownView markdown={report.feedbacks[0].content} />
             </div>
           )}
         </div>
