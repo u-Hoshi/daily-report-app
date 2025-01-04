@@ -54,16 +54,17 @@ export function DailyReportCard({ date, report }: DailyReportCardProps) {
   return (
     <Card className="mb-4 overflow-hidden">
       <CardHeader className="bg-primary text-primary-foreground">
-        {/* <CardTitle className="flex justify-between items-center">
-          {new Date(date).toLocaleDateString()}
+        <div className="flex justify-between items-center">
+          <CardTitle>{new Date(date).toLocaleDateString()}</CardTitle>
           <Button
             variant="ghost"
-            className="ml-2 hover:bg-gray-200 transition-colors group group-hover:text-black"
+            className="ml-2 hover:bg-gray-200 transition-colors"
             onClick={handleEditClick}
+            aria-label="編集"
           >
-            <Pencil className="h-4 w-4 group-hover:text-zinc-900" />
+            <Pencil className="h-4 w-4" />
           </Button>
-        </CardTitle> */}
+        </div>
       </CardHeader>
       <CardContent className="pt-4 pb-0">
         {!!editing ? (
